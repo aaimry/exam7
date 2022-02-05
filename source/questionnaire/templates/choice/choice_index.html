@@ -1,0 +1,14 @@
+{% block content %}
+    <h1> Варианты:</h1>
+    <a href="{% url 'choice_add' poll.pk %}">Добавить вариант</a>
+    <div class="container">
+            {% for choice in choices %}
+                <div class="card mb-3" style="width: 40rem;">
+                    <div class="card-body">
+                        <h3>{{ choice.choice_text }}</h3>
+                        <a style="text-decoration: none" href="{% url 'choice_delete' choice.pk %}"> Удалить вариант </a>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+{% endblock %}

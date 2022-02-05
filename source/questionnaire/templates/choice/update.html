@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Update Choice {% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+    <h1>Изменить Вариант</h1>
+    <form method="post">
+        {% include 'partial/form.html' with button_text='Update'%}
+    </form>
+{% endblock %}

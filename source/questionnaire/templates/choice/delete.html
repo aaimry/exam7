@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% csrf_token %}
+    <form action="{% url 'choice_delete' choice.pk %}" method="POST">
+        {% csrf_token %}
+        <h2>Вы хотите удалить этот вариант?
+            <br>
+            {{ poll.question }}</h2>
+        <div class="d-grid gap-2 d-md-block">
+            <input class="btn btn-primary btn-lg" type="submit" value="Да">
+            <a class="btn btn-primary btn-lg" href="{% url 'poll_check' choice.pk  %}">Нет</a>
+        </div>
+    </form>
+{% endblock %}
