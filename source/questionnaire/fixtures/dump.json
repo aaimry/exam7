@@ -203,7 +203,8 @@
     "model": "questionnaire.choice",
     "pk": 22,
     "fields": {
-        "choice_text": "‡‚Ë‚‡Ë‚‡",
+        "choice_text": "–∞–≤–∏–≤–∞–∏–≤–∞",
         "poll": 7
     }
 }
+    ]
