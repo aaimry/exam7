@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Add poll {% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+    <h1>Давайте создадим новый опрос!</h1>
+    <form method="post">
+        {% include 'partial/form.html' with button_text='Send'%}
+    </form>
+{% endblock %}

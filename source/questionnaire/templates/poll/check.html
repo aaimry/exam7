@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Polls {{ poll.pk }} {% endblock %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url 'poll_update' poll.pk %}">Update poll</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url 'poll_delete' poll.pk %}">Delete poll</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <h2>Вопрос</h2>
+    <h1>{{ poll.question }}</h1>
+    <h3>{{ poll.create_date }}</h3>
+    <br>
+    <a href="{% url 'answer' poll.pk %}">Пройти опрос</a>
+    <h3>Варианты: </h3>
+    <div class="container">
+            {% for choice in poll.poll.all %}
+                <div class="card mb-3" style="width: 30rem;">
+                    <div class="card-body">
+                       <h4>{{ choice.choice_text }}</h4>
+                        <a style="text-decoration: none" href="{% url 'choice_update' choice.pk %}">Изменить</a>
+                        <a style="text-decoration: none" href="{% url 'choice_delete' choice.pk %}">Удалить вариант</a>
+                    </div>
+                </div>
+            {% endfor %}
+        <a style="text-decoration: none; font-size: large" href="{% url 'choice_add' poll.pk %}">Добавить вариант</a>
+    </div>
+{% endblock %}
