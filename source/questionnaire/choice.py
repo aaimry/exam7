@@ -1,9 +1,9 @@
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 
-from .form import ChoiceForm
+from .form import ChoiceForm, AnswerForm
 from .models import Choice, Poll
 
 
@@ -37,9 +37,6 @@ class ChoiceUpdateView(UpdateView):
     model = Choice
     context_object_name = 'choice'
 
-    def get_success_url(self):
-        return reverse('poll_check', kwargs={'pk': self.object.poll.pk})
-
 
 class ChoiceDeleteView(DeleteView):
     model = Choice
@@ -53,11 +50,22 @@ class ChoiceDeleteView(DeleteView):
 class AnswerView(TemplateView):
     template_name = 'answer/answer_view.html'
     object = 'answer'
+    form_class = AnswerForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         poll = get_object_or_404(Poll, pk=self.kwargs.get('pk'))
         context['poll'] = poll
-        choice = poll.poll_answer.all('choice')
-        context['choice'] = choice
         return context
+
+    def form_valid(self, form):
+        poll = get_object_or_404(Poll, pk=self.kwargs.get('pk'))
+        choice = form.save(commit=False)
+        choice.poll = poll
+        choice.save()
+        return redirect('poll_check', pk=poll.pk)
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
+        return form_class(self.kwargs.get('pk'), **self.get_form_kwargs())

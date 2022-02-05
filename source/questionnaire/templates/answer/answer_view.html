@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Answer {{ answer.pk }} {% endblock %}
+{% block nav %}
+{% endblock %}
+{% block content %}
+    <h2>Вопрос:</h2>
+    <h1>{{ poll }}</h1>
+    <br>
+    <h3> Выберите Вариант: </h3>
+    {% include 'partial/form.html' with button_text='Send' %}
+{% endblock %}
+

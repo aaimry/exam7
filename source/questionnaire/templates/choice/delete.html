@@ -8,7 +8,7 @@
             {{ poll.question }}</h2>
         <div class="d-grid gap-2 d-md-block">
             <input class="btn btn-primary btn-lg" type="submit" value="Да">
-            <a class="btn btn-primary btn-lg" href="{% url 'poll_check' choice.pk  %}">Нет</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'poll_check' choice.poll.pk  %}">Нет</a>
         </div>
     </form>
 {% endblock %}
