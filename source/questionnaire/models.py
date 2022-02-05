@@ -27,7 +27,7 @@ class Choice(models.Model):
         return reverse('poll_check', kwargs={'pk': self.poll.pk})
 
     def __str__(self):
-        return f'{self.choice_text} : {self.poll}'
+        return f'{self.choice_text} '
 
     class Meta:
         db_table = 'Choice'
@@ -39,7 +39,8 @@ class Answer(models.Model):
     poll = models.ForeignKey('Poll', on_delete=models.CASCADE, related_name='poll_answer',
                              verbose_name='Опрос')
     datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата заполнения')
-    choice = models.ForeignKey('Choice', on_delete=models.CASCADE, related_name='choice_answer', verbose_name='Вариант')
+    choice = models.ForeignKey('Choice', on_delete=models.CASCADE, default=1, related_name='choice_answer', verbose_name='Вариант')
+    update = models.DateTimeField(auto_now=True, verbose_name='Дата заполнения')
 
     def __str__(self):
         return f'{self.poll} : {self.choice}'
